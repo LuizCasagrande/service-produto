@@ -4,6 +4,8 @@ import com.luizcasagrande.serviceproduto.model.Produto;
 import com.luizcasagrande.serviceproduto.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
+
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
 
@@ -16,5 +18,11 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Override
     public Produto inserir(Produto produto) {
         return produtoRepository.save(produto);
+    }
+
+    @Override
+    public Produto buscar(Long id) {
+        return produtoRepository.findById(id).orElseThrow(() ->
+                new NoResultException(String.format("Produto com código %d não encontrado", id)));
     }
 }
