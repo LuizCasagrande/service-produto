@@ -1,6 +1,6 @@
 package com.luizcasagrande.serviceproduto.http;
 
-import com.luizcasagrande.serviceproduto.http.data.rerquest.ProdutoPersistDto;
+import com.luizcasagrande.serviceproduto.http.data.request.ProdutoPersistDto;
 import com.luizcasagrande.serviceproduto.model.Produto;
 import com.luizcasagrande.serviceproduto.service.ProdutoService;
 import org.springframework.web.bind.annotation.PathVariable;

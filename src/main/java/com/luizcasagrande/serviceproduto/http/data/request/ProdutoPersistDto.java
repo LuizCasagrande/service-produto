@@ -1,4 +1,4 @@
-package com.luizcasagrande.serviceproduto.http.data.rerquest;
+package com.luizcasagrande.serviceproduto.http.data.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
