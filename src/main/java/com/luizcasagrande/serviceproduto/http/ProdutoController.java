@@ -1,5 +1,8 @@
 package com.luizcasagrande.serviceproduto.http;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import com.luizcasagrande.serviceproduto.http.data.request.ProdutoPersistDto;
 import com.luizcasagrande.serviceproduto.model.Produto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,4 +41,14 @@ public interface ProdutoController {
     })
     @GetMapping("{id}")
     Produto buscar(@PathVariable("id") Long id);
+
+    @PatchMapping("{id}")
+    Produto alterar(@PathVariable("id") Long id, @RequestBody JsonPatch patch) throws JsonPatchException, JsonProcessingException;
+
+    @PutMapping("{id}")
+    Produto alterar(@PathVariable("id") Long id, @RequestBody ProdutoPersistDto dto);
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void excluir(@PathVariable("id") Long id);
 }

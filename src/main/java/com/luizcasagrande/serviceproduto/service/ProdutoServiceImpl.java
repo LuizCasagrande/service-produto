@@ -16,13 +16,33 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public Produto inserir(Produto produto) {
+    public Produto salvar(Produto produto) {
         return produtoRepository.save(produto);
     }
 
     @Override
     public Produto buscar(Long id) {
-        return produtoRepository.findById(id).orElseThrow(() ->
-                new NoResultException(String.format("Produto com código %d não encontrado", id)));
+        return produtoRepository.findById(id)
+                .orElseThrow(() -> getNoResultException(id));
+    }
+
+    @Override
+    public Produto alterar(Produto produto) {
+        if (!produtoRepository.existsById(produto.getId())) {
+            throw getNoResultException(produto.getId());
+        }
+        return salvar(produto);
+    }
+
+    @Override
+    public void excluir(Long id) {
+        if (!produtoRepository.existsById(id)) {
+            throw getNoResultException(id);
+        }
+        produtoRepository.deleteById(id);
+    }
+
+    private NoResultException getNoResultException(Long id) {
+        return new NoResultException(String.format("Produto com código %d não encontrado", id));
     }
 }
