@@ -1,7 +1,9 @@
 package com.luizcasagrande.serviceproduto.service;
 
+import com.luizcasagrande.serviceproduto.event.ProdutoPersistEvent;
 import com.luizcasagrande.serviceproduto.model.Produto;
 import com.luizcasagrande.serviceproduto.repository.ProdutoRepository;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
@@ -10,14 +12,18 @@ import javax.persistence.NoResultException;
 public class ProdutoServiceImpl implements ProdutoService {
 
     private final ProdutoRepository produtoRepository;
+    private final ApplicationEventPublisher aplApplicationEventPublisher;
 
-    public ProdutoServiceImpl(ProdutoRepository produtoRepository) {
+    public ProdutoServiceImpl(ProdutoRepository produtoRepository, ApplicationEventPublisher aplApplicationEventPublisher) {
         this.produtoRepository = produtoRepository;
+        this.aplApplicationEventPublisher = aplApplicationEventPublisher;
     }
 
     @Override
     public Produto salvar(Produto produto) {
-        return produtoRepository.save(produto);
+        Produto produtoPersistido = produtoRepository.save(produto);
+        aplApplicationEventPublisher.publishEvent(new ProdutoPersistEvent(this, produtoPersistido));
+        return produtoPersistido;
     }
 
     @Override

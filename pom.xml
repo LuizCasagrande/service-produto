@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.luizcasagrande</groupId>
     <artifactId>service-produto</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>service-produto</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -54,6 +54,10 @@
             <version>1.13</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-artemis</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
@@ -80,6 +84,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.6.0</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:15-jdk-slim-buster</image>
+                    </from>
+                    <to>
+                        <image>luizcasagrande/service-produto:${version}</image>
+                    </to>
+                    <container>
+                        <mainClass>com.luizcasagrande.serviceproduto.ServiceProdutoApplication</mainClass>
+                    </container>
+                </configuration>
             </plugin>
         </plugins>
     </build>
