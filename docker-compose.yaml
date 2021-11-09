@@ -14,15 +14,3 @@ services:
     expose:
       - 61616
       - 8161
-
-  produto:
-    container_name: produto
-    image: luizcasagrande/service-produto:1.0
-    environment:
-      JMS_HOST: jms
-    ports:
-      - 8080:8080
-    expose:
-      - 8080
-    depends_on:
-      - jms
